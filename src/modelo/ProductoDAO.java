@@ -95,10 +95,10 @@ public class ProductoDAO {
         PreparedStatement ps = null;
         try {
             ps = cn.prepareStatement("insert into tienda values (?,?,?,?)");
-            ps.setInt(1, p.nserie);
-            ps.setString(2, p.nombre);
-            ps.setString(3, p.fabricante);
-            ps.setInt(4, p.precio);
+            ps.setInt(1, p.getNserie());
+            ps.setString(2, p.getNombre());
+            ps.setString(3, p.getFabricante());
+            ps.setInt(4, p.getPrecio());
             ps.executeUpdate();
             System.out.println("Inserción correcta");
 
