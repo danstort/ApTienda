@@ -34,6 +34,12 @@ public class FXMLController implements Initializable {
     private TextField tfprecio;
     @FXML
     private Button bGuardar;
+    @FXML
+    private Button bCatalogo;
+    @FXML
+    private Button bEliminar;
+    @FXML
+    private Button bBuscar;
 
     /**
      * Initializes the controller class.
@@ -46,37 +52,103 @@ public class FXMLController implements Initializable {
     @FXML
     private void guardarProducto(ActionEvent event) {
 
-         if(tfnserie.getText().isEmpty()||tfnombre.getText().isEmpty()||tffabricante.getText().isEmpty()||tfprecio.getText().isEmpty()){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("ERROR");
-        ArrayList<String> lista = new ArrayList<String>();
-        lista.add("Nombre");
-        lista.add("Dirección");
-        lista.add("Teléfono");
-        String salida = "";
-        for(String datos: lista){
-            salida = salida+datos+"\n";
-        }
-        alert.setHeaderText("Mensaje de error");
-        alert.setContentText("Debe introducir los DATOS de cliente \n"+salida);
-        alert.showAndWait();
+        if (tfnserie.getText().isEmpty() || tfnombre.getText().isEmpty() || tffabricante.getText().isEmpty() || tfprecio.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            ArrayList<String> lista = new ArrayList<String>();
+            lista.add("Nombre");
+            lista.add("Dirección");
+            lista.add("Teléfono");
+            String salida = "";
+            for (String datos : lista) {
+                salida = salida + datos + "\n";
+            }
+            alert.setHeaderText("Mensaje de error");
+            alert.setContentText("Debe introducir los DATOS de cliente \n" + salida);
+            alert.showAndWait();
         } else {
-        Producto p = new Producto();
-        p.setNserie(parseInt(tfnserie.getText()));
-        p.setNombre(tfnombre.getText());
-        p.setFabricante(tffabricante.getText());
-        p.setPrecio(parseInt(tfprecio.getText()));
+            Producto p = new Producto();
+            p.setNserie(parseInt(tfnserie.getText()));
+            p.setNombre(tfnombre.getText());
+            p.setFabricante(tffabricante.getText());
+            p.setPrecio(parseInt(tfprecio.getText()));
 
-        ProductoDAO pDAO = new ProductoDAO();
-        pDAO.insertar(p);
-        
-         Alert alert2 = new Alert (Alert.AlertType.INFORMATION);
+            ProductoDAO pDAO = new ProductoDAO();
+            pDAO.insertar(p);
+
+            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
             alert2.setTitle("INFORMACION");
             alert2.setHeaderText("Mensaje de informacion");
             alert2.setContentText("Se ha insertado correctamente");
             alert2.showAndWait();
+
+        }
+    }
+
+    @FXML
+    private void mostrarCatalogo(ActionEvent event) {
+
+        ArrayList<Producto> p = new ArrayList<>();
+        ProductoDAO pDAO = new ProductoDAO();
+        p = pDAO.mostrarContenido();
+        String bucle = "";
+
+        for (Producto pa : p) {
+
+            bucle = bucle + pa.toString() + "\n";
+        }
+
+        System.out.println(bucle);
+        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+        alert2.setTitle("INFORMACION");
+        alert2.setHeaderText("Mensaje de informacion");
+        alert2.setContentText(bucle);
+        alert2.showAndWait();
+
+    }
+
+    @FXML
+    private void eliminar(ActionEvent event) {
+
+        if (tfnserie.getText().isEmpty()) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Mensaje de error");
+            alert.setContentText("Debe introducir el número de serie");
+            alert.showAndWait();
+        } else {
         
-         }
+            Producto p = new Producto();
+            p.setNserie(parseInt(tfnserie.getText()));
+            ProductoDAO pDAO = new ProductoDAO();
+            pDAO.borrar(p);
+        }
+    }
+
+    @FXML
+    private void buscar(ActionEvent event) {
+        
+        ArrayList<Producto> listab = new ArrayList<>();
+        ProductoDAO pDAO = new ProductoDAO();
+        listab=pDAO.Buscar();
+        int text = parseInt(tfnserie.getText());
+        ArrayList<Producto> res = new ArrayList<>();
+        
+        for(Producto a : listab){
+            
+           if(a.getNserie()==text){
+           
+            res.add(a);
+            
+           }
+           
+        }
+        
+        for (Producto a : res){
+        
+            System.out.println(a.toString());
+        }
     }
 
 }

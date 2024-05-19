@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="617.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="controlador.FXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLController">
    <children>
       <Pane layoutX="27.0" layoutY="30.0" prefHeight="292.0" prefWidth="538.0">
          <children>
@@ -20,7 +19,10 @@
             <TextField fx:id="tfnombre" layoutX="160.0" layoutY="133.0" prefHeight="25.0" prefWidth="101.0" />
             <TextField fx:id="tffabricante" layoutX="160.0" layoutY="193.0" prefHeight="25.0" prefWidth="101.0" />
             <TextField fx:id="tfprecio" layoutX="160.0" layoutY="245.0" prefHeight="25.0" prefWidth="101.0" />
-            <Button fx:id="bGuardar" layoutX="346.0" layoutY="72.0" mnemonicParsing="false" onAction="#guardarProducto" text="Guardar" />
+            <Button fx:id="bGuardar" layoutX="346.0" layoutY="72.0" mnemonicParsing="false" onAction="#guardarProducto" prefHeight="25.0" prefWidth="65.0" text="Guardar" />
+            <Button fx:id="bCatalogo" layoutX="348.0" layoutY="134.0" mnemonicParsing="false" onAction="#mostrarCatalogo" prefHeight="25.0" prefWidth="65.0" text="Catálogo" />
+            <Button fx:id="bEliminar" layoutX="458.0" layoutY="72.0" mnemonicParsing="false" onAction="#eliminar" text="Eliminar" />
+            <Button fx:id="bBuscar" layoutX="458.0" layoutY="133.0" mnemonicParsing="false" onAction="#buscar" prefHeight="25.0" prefWidth="58.0" text="Buscar" />
          </children>
       </Pane>
    </children>

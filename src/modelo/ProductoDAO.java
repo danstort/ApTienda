@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class ProductoDAO {
     
-   public ArrayList<Producto> buscar() {
+   public ArrayList<Producto> mostrarContenido() {
 
         Conexiones conexion = new Conexiones();
         Connection cn = conexion.conectar();
@@ -148,6 +148,44 @@ public class ProductoDAO {
 
         }
 
+    }
+    
+    public ArrayList<Producto> Buscar() {
+
+        Conexiones conexion = new Conexiones();
+        Connection cn = conexion.conectar();
+        ArrayList<Producto> listaProductos = new ArrayList<>();
+
+        Statement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            st = cn.createStatement();
+            rs = st.executeQuery("select * from tienda");
+
+            while (rs.next()) {
+                Producto p = new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                listaProductos.add(p);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println(ex.getMessage());
+        } finally {
+
+            try {
+                st.close();
+                rs.close();
+                conexion.desconectar(cn);
+            } catch (SQLException ex) {
+
+                System.out.println("Error al conectar");
+            }
+
+        }
+
+        return listaProductos;
     }
     
     
